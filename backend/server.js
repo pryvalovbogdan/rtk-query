@@ -8,7 +8,6 @@ const server = new Server(8000, {
 
 let sequenceNumberByClient = new Map();
 
-// event fired every time a new client connects:
 server.on('connection', socket => {
   console.info(`Client connected [id=${socket.id}]`);
   // initialize this client's sequence number
@@ -16,7 +15,7 @@ server.on('connection', socket => {
 
   setInterval(() => {
     server.emit('message', { ACTION_TYPE: 'SOME_ACTION', data: { value: 'data' } });
-  }, 10000);
+  }, 20000);
 
   // when socket disconnects, remove it from the list:
   socket.on('disconnect', () => {
@@ -25,14 +24,3 @@ server.on('connection', socket => {
   });
 });
 
-setTimeout(() => {
-  server.emit('SOME_ACTION2', { data: 'data' });
-}, 3000);
-
-// // sends each client its current sequence number
-// setInterval(() => {
-//   for (const [client, sequenceNumber] of sequenceNumberByClient.entries()) {
-//     client.emit('seq-num', sequenceNumber);
-//     sequenceNumberByClient.set(client, sequenceNumber + 1);
-//   }
-// }, 1000);

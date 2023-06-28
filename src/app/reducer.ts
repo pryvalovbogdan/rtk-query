@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IStoreState} from './types';
 import { DEFAULT_STATE } from './constants';
-import usersApi from "./services/users";
+import { getUsers } from "./services/users";
 
 const storeReducer = createSlice({
   name: 'reducerStore',
@@ -17,7 +17,7 @@ const storeReducer = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(usersApi.endpoints.getUsers.matchFulfilled, (state: IStoreState, action) => {
+    builder.addMatcher(getUsers.matchFulfilled, (state: IStoreState, action) => {
       state.users = action.payload;
     })
   }
