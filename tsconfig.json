@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "modules": ["modules/"],
+      "assets": ["assets/"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
