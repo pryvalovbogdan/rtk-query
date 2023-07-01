@@ -1,17 +1,14 @@
 import React from 'react';
 
-import { useGetUsersQuery } from '../../app/services/users';
+import { useGetUsersQuery } from '../../app/services/usersApi';
 import { useSubscribeToEventsQuery } from '../../app/services/wsApi';
 
-import { useAppDispatch } from '../../app/store';
-
 export const CitiesManager = () => {
-  const { data: cities, isLoading, error, isError } = useGetUsersQuery(5);
-  const dispatch = useAppDispatch();
+  const { data: cities, isLoading } = useGetUsersQuery(5);
 
   useSubscribeToEventsQuery();
 
-  console.log('data: cities, isLoading', cities, isLoading, error, isError);
+  console.log('cities', cities);
 
   if (isLoading) {
     return <div>Loading</div>;

@@ -3,13 +3,15 @@ import React, { useEffect } from 'react';
 
 import { useAppDispatch } from '../../app/store';
 import { api } from '../../app/services/api';
-import { useGetPostsQuery } from '../../app/services/postsAPI';
+import { useGetPostsQuery } from '../../app/services/postsApi';
 import { actionGetUsers } from '../../app/actions';
 
 const Posts = () => {
   const dispatch = useAppDispatch();
   const { data: posts, isLoading } = useGetPostsQuery();
   // posts are read-only
+
+  // To mutate query manually use dispatch api.util.updateQueryData
   const handleAddPost = () => {
     dispatch(
       api.util.updateQueryData('getPosts' as never, undefined as never, (draftPosts = [] as never) => {

@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export const postsAPI = api.injectEndpoints({
+export const postsApi = api.injectEndpoints({
   endpoints: builder => ({
     getPosts: builder.query<Array<{ id: number; title: string; body: string }>, void>({
       query: () => 'https://jsonplaceholder.typicode.com/posts',
@@ -8,4 +8,4 @@ export const postsAPI = api.injectEndpoints({
   }),
 });
 
-export const { useGetPostsQuery } = postsAPI;
+export const { useGetPostsQuery } = postsApi;

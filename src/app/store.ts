@@ -1,9 +1,10 @@
-import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { api } from './services/api';
-import storeReducer from './reducer';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+
+import { api } from './services/api';
+import storeReducer from './reducer';
 import { rootSaga } from './saga';
 
 const sagaMiddleware = createSagaMiddleware();

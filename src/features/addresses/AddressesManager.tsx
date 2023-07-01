@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useGetAddressesQuery } from '../../app/services/addresses';
+import React, { useState } from 'react';
+
+import { useGetAddressesQuery } from '../../app/services/addressesApi';
 
 export const AddressesManager = () => {
   const [initRetries, setInitRetries] = useState(false);
   const [query, setQuery] = useState<number>(5);
-  const { data: addresses, isLoading, error: UserError, isError } = useGetAddressesQuery(query);
+  const { data: addresses, isLoading } = useGetAddressesQuery(query);
 
   console.log('addresses', addresses);
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IStoreState } from './types';
 import { DEFAULT_STATE } from './constants';
-import { getUsers } from './services/users';
+import { getUsers } from './services/usersApi';
 
 const storeReducer = createSlice({
   name: 'reducerStore',

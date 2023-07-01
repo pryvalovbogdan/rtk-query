@@ -1,8 +1,4 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store';
-import type { BaseQueryFn } from '@reduxjs/toolkit/query';
-import axios from 'axios';
-import type { AxiosRequestConfig, AxiosError } from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({

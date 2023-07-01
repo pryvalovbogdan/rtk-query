@@ -19,7 +19,7 @@ export const wsApi = api.injectEndpoints({
 
           socket.on('message', function (message) {
             console.log('message!', message);
-            console.log('getState', getState(), getCacheEntry());
+            console.log('getState socket', getState(), getCacheEntry());
 
             dispatch(actionSetUsers(message.data));
             dispatch(actionGetUsers(message));
