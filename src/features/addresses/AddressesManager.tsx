@@ -4,8 +4,7 @@ import { useGetAddressesQuery } from '../../app/services/addressesApi';
 
 export const AddressesManager = () => {
   const [initRetries, setInitRetries] = useState(false);
-  const [query, setQuery] = useState<number>(5);
-  const { data: addresses, isLoading } = useGetAddressesQuery(query);
+  const { data: addresses, isLoading } = useGetAddressesQuery();
 
   console.log('addresses', addresses);
 

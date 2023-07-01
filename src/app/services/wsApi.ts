@@ -2,6 +2,7 @@ import { api } from './api';
 import { io } from 'socket.io-client';
 import { actionSetUsers } from '../reducer';
 import { actionGetUsers } from '../actions';
+import { actionTypeHandle } from '../utils';
 
 export const wsApi = api.injectEndpoints({
   endpoints: build => ({
@@ -21,6 +22,7 @@ export const wsApi = api.injectEndpoints({
             console.log('message!', message);
             console.log('getState socket', getState(), getCacheEntry());
 
+            actionTypeHandle(message, dispatch);
             dispatch(actionSetUsers(message.data));
             dispatch(actionGetUsers(message));
           });

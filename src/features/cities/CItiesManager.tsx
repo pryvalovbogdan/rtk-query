@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useGetUsersQuery } from '../../app/services/usersApi';
 import { useSubscribeToEventsQuery } from '../../app/services/wsApi';
 
 export const CitiesManager = () => {
-  const { data: cities, isLoading } = useGetUsersQuery(5);
+  const [query, setQuery] = useState<number>(5);
+  const { data: cities, isLoading } = useGetUsersQuery(query);
 
   useSubscribeToEventsQuery();
 
@@ -20,6 +21,7 @@ export const CitiesManager = () => {
 
   return (
     <div>
+      <button onClick={() => setQuery(prevState => prevState + 1)}>Add city</button>
       {cities.map(item => (
         <div key={item.id}>
           <div>City: {item.address.city}</div>

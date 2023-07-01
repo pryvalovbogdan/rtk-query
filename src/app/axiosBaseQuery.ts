@@ -1,21 +1,31 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/query';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['Accept'] = 'application/json, text/javascript, */*; q=0.01';
+
+axios.interceptors.response.use(
+  response => (response && response.data ? response.data : response),
+  error => {
+    // Redirect when user is not authorised
+    if (error.response.status === 401) {
+      window.location.href = '/';
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' },
-  ): BaseQueryFn<
-    {
-      url: string;
-      method: AxiosRequestConfig['method'];
-      data?: AxiosRequestConfig['data'];
-      params?: AxiosRequestConfig['params'];
-    },
-    unknown,
-    unknown
-  > =>
+  ): BaseQueryFn<{
+    url: string;
+    method: AxiosRequestConfig['method'];
+    data?: AxiosRequestConfig['data'];
+    params?: AxiosRequestConfig['params'];
+  }> =>
   async ({ url, method = 'GET', data, params }) => {
-    console.log('vase url', url, baseUrl);
     try {
       const result = await axios({ url: baseUrl + url, method, data, params });
 
