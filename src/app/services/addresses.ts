@@ -1,17 +1,15 @@
-import { api } from './api'
+import { api } from './api';
 
 export const adressesApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    getAddresses: build.query<any, void>({
-      query: () => ({url: 'https://random-data-api.com/api/address/random_address'}),
+  endpoints: build => ({
+    getAddresses: build.query<any, any>({
+      query: () => ({ url: 'https://random-data-api.com/api/address/random_address' }),
       providesTags: (result: any = []) => [
-        ...[result].map(({id}) => ({type: 'Posts', id} as const)),
-        {type: 'Posts' as const, id: 'LIST'},
+        ...[result].map(({ id }) => ({ type: 'Posts', id } as const)),
+        { type: 'Posts' as const, id: 'LIST' },
       ],
     }),
-  })
-})
+  }),
+});
 
-export const {
-  useGetAddressesQuery,
-} = adressesApi
+export const { useGetAddressesQuery } = adressesApi;

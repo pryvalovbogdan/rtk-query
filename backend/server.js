@@ -13,9 +13,9 @@ server.on('connection', socket => {
   // initialize this client's sequence number
   sequenceNumberByClient.set(socket, 1);
 
-  setInterval(() => {
+  setTimeout(() => {
     server.emit('message', { ACTION_TYPE: 'SOME_ACTION', data: { value: 'data' } });
-  }, 20000);
+  }, 10000);
 
   // when socket disconnects, remove it from the list:
   socket.on('disconnect', () => {
@@ -23,4 +23,3 @@ server.on('connection', socket => {
     console.info(`Client gone [id=${socket.id}]`);
   });
 });
-

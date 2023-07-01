@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { useGetUsersQuery } from '../../app/services/users';
 import { useSubscribeToEventsQuery } from '../../app/services/wsApi';
 
+import { useAppDispatch } from '../../app/store';
+
 export const CitiesManager = () => {
   const { data: cities, isLoading, error, isError } = useGetUsersQuery(5);
+  const dispatch = useAppDispatch();
 
   useSubscribeToEventsQuery();
 
@@ -22,10 +23,12 @@ export const CitiesManager = () => {
 
   return (
     <div>
-      {cities.map(item => <div key={item.id}>
-        <div>City: {item.address.city}</div>
-        <div>Country: {item.address.country}</div>
-      </div>)}
+      {cities.map(item => (
+        <div key={item.id}>
+          <div>City: {item.address.city}</div>
+          <div>Country: {item.address.country}</div>
+        </div>
+      ))}
     </div>
   );
 };

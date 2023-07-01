@@ -1,18 +1,18 @@
 import { api } from './api';
 import { io } from 'socket.io-client';
-import { actionSetUsers } from "../reducer";
-import { actionGetUsers } from "../actions";
+import { actionSetUsers } from '../reducer';
+import { actionGetUsers } from '../actions';
 
 export const wsApi = api.injectEndpoints({
   endpoints: build => ({
-    subscribeToEvents: build.query<any, any>({
-      queryFn: () => ({data: []}),
-      async onCacheEntryAdded(_arg, {dispatch, updateCachedData, cacheEntryRemoved, getState, getCacheEntry}){
+    subscribeToEvents: build.query<any, void>({
+      queryFn: () => ({ data: [] }),
+      async onCacheEntryAdded(_arg, { dispatch, cacheEntryRemoved, getState, getCacheEntry }) {
         const socket = io('http://localhost:8000');
 
         socket.on('disconnect', reason => {
-          console.log('reason', reason)
-        })
+          console.log('reason', reason);
+        });
 
         socket.on('connect', function () {
           console.log('connected!');
@@ -21,17 +21,16 @@ export const wsApi = api.injectEndpoints({
             console.log('message!', message);
             console.log('getState', getState(), getCacheEntry());
 
-            dispatch(actionSetUsers(message.data, null))
+            dispatch(actionSetUsers(message.data));
             dispatch(actionGetUsers(message));
           });
         });
 
-        await cacheEntryRemoved
-        socket.close()
-      }
+        await cacheEntryRemoved;
+        socket.close();
+      },
+    }),
+  }),
+});
 
-    })
-  })
-})
-
-export const { useSubscribeToEventsQuery } = wsApi
+export const { useSubscribeToEventsQuery } = wsApi;
