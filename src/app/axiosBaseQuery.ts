@@ -16,12 +16,12 @@ axios.interceptors.response.use(
   },
 );
 
-const axiosBaseQuery =
+export const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' },
   ): BaseQueryFn<{
     url: string;
-    method: AxiosRequestConfig['method'];
+    method?: AxiosRequestConfig['method'];
     data?: AxiosRequestConfig['data'];
     params?: AxiosRequestConfig['params'];
   }> =>
@@ -29,7 +29,8 @@ const axiosBaseQuery =
     try {
       const result = await axios({ url: baseUrl + url, method, data, params });
 
-      return { data: result.data };
+      // Always need to pass result as "data" prop otherwise response will be undefiled
+      return { data: result };
     } catch (axiosError) {
       let err = axiosError as AxiosError;
 

@@ -5,11 +5,11 @@ import { useSubscribeToEventsQuery } from '../../app/services/wsApi';
 
 export const CitiesManager = () => {
   const [query, setQuery] = useState<number>(5);
-  const { data: cities, isLoading } = useGetUsersQuery(query);
+  const { data: cities, isLoading, error } = useGetUsersQuery(query);
 
   useSubscribeToEventsQuery();
 
-  console.log('cities', cities);
+  console.log('cities', cities, error);
 
   if (isLoading) {
     return <div>Loading</div>;

@@ -3,8 +3,8 @@ import { api } from './api';
 export const usersApi = api.injectEndpoints({
   endpoints: build => ({
     getUsers: build.query<any, number>({
-      query: size => `https://random-data-api.com/api/users/random_user?size=${size}`,
-      providesTags: (_result, _err, id) => [{ type: 'Posts', id }],
+      query: size => ({ url: `https://random-data-api.com/api/users/random_user?size=${size}` }),
+      providesTags: [{ type: 'Users' as never }],
       async onQueryStarted(arg, { getState }) {
         console.log('getState', getState());
       },

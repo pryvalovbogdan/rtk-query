@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from '../axiosBaseQuery';
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
@@ -20,8 +21,8 @@ const baseQuery = fetchBaseQuery({
  * and to ensure that the file injecting the endpoints is loaded
  */
 export const api = createApi({
+  baseQuery: axiosBaseQuery(),
   reducerPath: 'api',
-  baseQuery: baseQuery,
-  tagTypes: [],
+  tagTypes: ['Users', 'Posts', 'Addresses'],
   endpoints: () => ({}),
 });

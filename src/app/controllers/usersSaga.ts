@@ -12,8 +12,8 @@ export function* handleGetUsers(payload) {
     console.log('payload', payload);
 
     yield put(
-      // @ts-ignore
-      api.util.updateQueryData('getPosts', undefined, (draftPosts = []) => {
+      // @ts-ignore  // For fetchBaseQuery use undefined for axiosBaseQuery use null
+      api.util.updateQueryData('getPosts', null, (draftPosts = []) => {
         return [...draftPosts, { id: Date.now(), title: 'New Post', body: 'This is a new post.' }];
       }),
     );

@@ -1,5 +1,4 @@
-// App.tsx
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useAppDispatch } from '../../app/store';
 import { api } from '../../app/services/api';
@@ -8,15 +7,20 @@ import { actionGetUsers } from '../../app/actions';
 
 const Posts = () => {
   const dispatch = useAppDispatch();
-  const { data: posts, isLoading } = useGetPostsQuery();
+  const { data: posts, isLoading } = useGetPostsQuery(null);
   // posts are read-only
 
   // To mutate query manually use dispatch api.util.updateQueryData
   const handleAddPost = () => {
     dispatch(
-      api.util.updateQueryData('getPosts' as never, undefined as never, (draftPosts = [] as never) => {
-        return [...draftPosts, { id: Date.now(), title: 'New Post', body: 'This is a new post.' }];
-      }),
+      api.util.updateQueryData(
+        'getPosts' as never,
+        // For fetchBaseQuery use undefined for axiosBaseQuery use null
+        null as never,
+        (draftPosts: Array<{ id: number; title: string; body: string }> = []) => {
+          return [...draftPosts, { id: Date.now(), title: 'New Post', body: 'This is a new post.' }];
+        },
+      ),
     );
   };
 

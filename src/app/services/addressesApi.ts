@@ -5,8 +5,8 @@ export const adressesApi = api.injectEndpoints({
     getAddresses: build.query<any, void>({
       query: () => ({ url: 'https://random-data-api.com/api/address/random_address' }),
       providesTags: (result: any = []) => [
-        ...[result].map(({ id }) => ({ type: 'Posts', id } as const)),
-        { type: 'Posts' as const, id: 'LIST' },
+        ...[result].map(({ id }) => ({ type: 'Posts' as never, id } as const)),
+        { type: 'Addresses' as const, id: 'LIST' } as never,
       ],
     }),
   }),
